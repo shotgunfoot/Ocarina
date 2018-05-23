@@ -8,6 +8,8 @@ public class OcarinaMic : MonoBehaviour {
     //Important we attach an audio mixer to the audio source used for the mic. This is to mute the feedback so we don't hear it.
     //Muting the audio source will mute the output, which we don't want.
 
+    #region Audio Sources
+
     [Header("Audio Sources")]
     public AudioSource A;
     public AudioSource CUp;
@@ -15,20 +17,30 @@ public class OcarinaMic : MonoBehaviour {
     public AudioSource CLeft;
     public AudioSource CRight;
 
+    #endregion
+
+    #region Mic Config
+
     [Header("Mic Configuration")]
     public float MinimumPlayTime = .5f;    
     public AudioSource MicSource;
     public float sensitivity = 100;
-    public float loudness = 0;
+    private float loudness = 0;
+    public float Threshold = 5;
+
+    #endregion
+
+    #region Private variables
 
     private bool aPressed;
     private bool cDownPressed;
     private bool cUpPressed;
     private bool cLeftPressed;
     private bool cRightPressed;
-
     private string microphone;
     private int audioSampleRate = 44100;
+
+    #endregion
 
     #region ButtonDown
 
@@ -93,11 +105,13 @@ public class OcarinaMic : MonoBehaviour {
 
     #endregion
 
+    #region Update
+
     // Update is called once per frame
     private void Update () {
         loudness = GetAveragedVolume() * sensitivity;
 
-        if(loudness > 5)
+        if(loudness > Threshold)
         {            
             if (aPressed)
             {                
@@ -126,6 +140,8 @@ public class OcarinaMic : MonoBehaviour {
         }
     }
 
+    #endregion
+
     private void PlayNoteOnce(AudioSource source)
     {
         if(source.isPlaying == false)
@@ -141,6 +157,7 @@ public class OcarinaMic : MonoBehaviour {
         StartCoroutine(WaitForMinTime(source));
     }
 
+    //Cutting the note off after a time sounds better than an immediate cut off when the finger/mouse is lifted.
     IEnumerator WaitForMinTime(AudioSource note)
     {
         yield return new WaitForSeconds(MinimumPlayTime);

@@ -14,22 +14,22 @@ public class Ocarina : MonoBehaviour
     public AudioSource CLeft;
     public AudioSource CRight;
 
+    [Header("Configuration")]
+    public float MinimumPlayTime = .5f;
+
     #endregion
 
-    private ToggleMic mode;
+    private ToggleMic ToggleMicMode;
 
     private void Start()
     {
-        if(mode == null)
+        if(ToggleMicMode == null)
         {
-            mode = GetComponent<ToggleMic>();
+            ToggleMicMode = GetComponent<ToggleMic>();
         }        
     }
 
     #region PlayNotes
-
-    [Header("Configuration")]
-    public float MinimumPlayTime = .5f;
 
     private void PlayNoteA()
     {
@@ -86,19 +86,23 @@ public class Ocarina : MonoBehaviour
     }
 
     #endregion
-
+   
     private void PlayNote(AudioSource note)
     {
-        if (!mode.UsingMicrophone())
+        if (!ToggleMicMode.UsingMicrophone())
         {
             note.mute = false;
             note.Play();
         }
     }
 
-    public void PlayANote(GameObject source)
+    /// <summary>
+    /// Checks if the note exists, then plays it.
+    /// </summary>
+    /// <param name="_note"></param>
+    public void CheckTheNote(GameObject _note)
     {
-        string note = source.name;
+        string note = _note.name;
         switch (note)
         {
             case "A":
