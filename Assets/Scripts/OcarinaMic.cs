@@ -46,27 +46,27 @@ public class OcarinaMic : MonoBehaviour {
 
     public void AButtonDown()
     {
-        aPressed = true;
+        aPressed = true;        
     }
 
     public void CUpButtonDown()
     {
-        cUpPressed = true;
+        cUpPressed = true;        
     }
 
     public void CDownButtonDown()
     {
-        cDownPressed = true;
+        cDownPressed = true;        
     }
 
     public void CLeftButtonDown()
     {
-        cLeftPressed = true;
+        cLeftPressed = true;        
     }
 
     public void CRightButtonDown()
     {
-        cRightPressed = true;
+        cRightPressed = true;        
     }
 
     #endregion
@@ -161,6 +161,7 @@ public class OcarinaMic : MonoBehaviour {
     IEnumerator WaitForMinTime(AudioSource note)
     {
         yield return new WaitForSeconds(MinimumPlayTime);
+        note.Stop();
         note.mute = true;
     }
 

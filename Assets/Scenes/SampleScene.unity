@@ -2005,6 +2005,11 @@ Prefab:
       propertyPath: Threshold
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 114460418688074968, guid: 23a0bdacb8cd4694eaf48d60f7b0d22c,
+        type: 2}
+      propertyPath: MinimumPlayTime
+      value: 0.4
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 23a0bdacb8cd4694eaf48d60f7b0d22c, type: 2}
   m_IsPrefabParent: 0
